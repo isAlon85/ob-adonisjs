@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\app",
+    "\\app\\Controllers",
+    "\\app\\Controllers\\Http",
+    "\\app\\Models",
+    "\\app\\Validators",
+    "\\config",
+    "\\database",
+    "\\database\\migrations",
+    "\\start"
   ],
+  "SelectedNode": "\\app\\Validators\\CreateCandidateValidator.ts",
   "PreviewInSolutionExplorer": false
 }

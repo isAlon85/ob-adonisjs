@@ -14,7 +14,7 @@ export default class UsersController {
   public async store({ request, response }: HttpContextContract) {
     const newUserSchema = schema.create({
 
-      completeName: schema.string({ trim: true }),
+      name: schema.string({ trim: true }),
 
       email: schema.string({ trim: true }, [
         rules.email(),

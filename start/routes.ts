@@ -29,18 +29,22 @@ Route.group(() => {
 
   Route.group(() => {
 
-    Route.resource('/users', 'UsersController').apiOnly();
+    Route.group(() => {
 
-    Route.resource('/candidates', 'CandidatesController').apiOnly();
+      Route.resource('/users', 'UsersController').apiOnly();
 
-    Route.resource('/skills', 'SkillsController').apiOnly();
+      Route.resource('/candidates', 'CandidatesController').apiOnly();
 
-    Route.resource('/experiences', 'ExperiencesController').apiOnly();
+      Route.resource('/skills', 'SkillsController').apiOnly();
 
-  })//.middleware('auth');
+      Route.resource('/experiences', 'ExperiencesController').apiOnly();
 
-  // login and register
-  //Route.post('/register', 'AuthController.register');
-  //Route.post('/login', 'AuthController.login');
+    }).middleware('auth');
 
-}).prefix('api/v1');
+    Route.post('/register', 'AuthController.register');
+    Route.post('/login', 'AuthController.login');
+    Route.post('/logout', 'AuthController.logout');
+
+  }).prefix('/v1');
+
+}).prefix('api');
