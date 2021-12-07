@@ -8,7 +8,7 @@ export default class Candidate extends BaseModel {
   public id: number
 
   @column()
-  public completeName: string
+  public name: string
 
   @column()
   public email: string

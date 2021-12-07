@@ -1,4 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Database from '@ioc:Adonis/Lucid/Database';
 import Candidate from 'App/Models/Candidate';
 export default class CandidatesController {
 
@@ -6,14 +7,18 @@ export default class CandidatesController {
     return Candidate.all();
   }
 
-  public async show({ params }: HttpContextContract) {
-    return Candidate.findOrFail(params.id);
+  public async show({ request, response}: HttpContextContract) {
+    //return Candidate.findOrFail(params.id);
+    request.input('salary')
+    //const candidate = await Database.from('candidates').where('location', request.input('location')).firstOrFail();
+    const candidate = await Database.from('candidates').where('salary', '<', request.input('salary')).firstOrFail();
+    return response.json({ candidate });
   }
 
   public async store({ request, response }: HttpContextContract) {
-    //validation
+
     const body = request.body();
-    // Create instance and save to database
+  
     const candidate = await Candidate.create(body);
     response.status(201);
     return candidate;

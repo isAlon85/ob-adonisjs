@@ -6,7 +6,7 @@ export default class Candidates extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('completeName').notNullable()
+      table.string('name').notNullable()
       table.string('email').notNullable().unique()
       table.string('phone').notNullable()
       table.dateTime('birthdate')
