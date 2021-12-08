@@ -4,13 +4,13 @@
     "\\app",
     "\\app\\Controllers",
     "\\app\\Controllers\\Http",
-    "\\app\\Models",
-    "\\app\\Validators",
+    "\\app\\Middleware",
     "\\config",
+    "\\contracts",
     "\\database",
     "\\database\\migrations",
     "\\start"
   ],
-  "SelectedNode": "\\app\\Validators\\CreateCandidateValidator.ts",
+  "SelectedNode": "\\app\\Controllers\\Http\\AuthController.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -1,24 +1,37 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Database from '@ioc:Adonis/Lucid/Database';
 import Candidate from 'App/Models/Candidate';
 export default class CandidatesController {
 
-  public async index() {
-    return Candidate.all();
+  public async index({ request, response }) {
+     if (request.input('location')) {
+      const candidate = await Candidate.query().where('location', request.input('location'))
+        .orWhere('remote', true)
+        .andWhere('active', true).firstOrFail();
+      return response.json({ candidate });
+    } else if (request.input('country')) {
+      const candidate = await Candidate.query().where('country', request.input('country'))
+        .andWhere('active', true).firstOrFail();
+      return response.json({ candidate });
+    } else if (request.input('remote')) {
+      const candidate = await Candidate.query().where('remote', true)
+        .andWhere('active', true).firstOrFail();
+      return response.json({ candidate });
+    } else if (request.input('salary_desired')) {
+      const candidate = await Candidate.query().where('salary_desired', '<=', request.input('salary_desired'))
+        .andWhere('active', true).firstOrFail();
+      return response.json({ candidate });
+    } else {
+       const candidate = await Candidate.query().where('active', false).firstOrFail();
+      return response.json({ candidate });
+    }
   }
 
-  public async show({ request, response}: HttpContextContract) {
-    //return Candidate.findOrFail(params.id);
-    request.input('salary')
-    //const candidate = await Database.from('candidates').where('location', request.input('location')).firstOrFail();
-    const candidate = await Database.from('candidates').where('salary', '<', request.input('salary')).firstOrFail();
-    return response.json({ candidate });
+  public async show({params}: HttpContextContract) {
+    return Candidate.findOrFail(params.id);
   }
 
   public async store({ request, response }: HttpContextContract) {
-
     const body = request.body();
-  
     const candidate = await Candidate.create(body);
     response.status(201);
     return candidate;
